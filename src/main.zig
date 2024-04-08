@@ -1,19 +1,21 @@
 const std = @import("std");
+const httpz = @import("httpz");
 
 pub fn main() !void {
-    // Prints to stderr (it's a shortcut based on `std.io.getStdErr()`)
-    std.debug.print("All your {s} are belong to us.\n", .{"codebase"});
+    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+    const allocator = gpa.allocator();
 
-    // stdout is for the actual output of your application, for example if you
-    // are implementing gzip, then only the compressed bytes should be sent to
-    // stdout, not any debugging messages.
-    const stdout_file = std.io.getStdOut().writer();
-    var bw = std.io.bufferedWriter(stdout_file);
-    const stdout = bw.writer();
+    var server = try httpz.Server().init(allocator, .{
+        .port = 3000,
+    });
+    var router = server.router();
+    router.get("/", ping);
+    return server.listen();
+}
 
-    try stdout.print("Run `zig build test` to run the tests.\n", .{});
-
-    try bw.flush(); // don't forget to flush!
+fn ping(req: *httpz.Request, res: *httpz.Response) !void {
+    _ = req;
+    res.body = "Hello World!";
 }
 
 test "simple test" {
