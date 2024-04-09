@@ -6,7 +6,11 @@
     .dependencies = .{
         .httpz = .{
             .url = "https://github.com/karlseguin/http.zig/archive/refs/heads/zig-0.11.tar.gz",
-	    .hash = "12206e909ab9ea45ad19b3a87dd176b6d5d1a552b028f22529b616d06817560cf65c",
+            .hash = "12206e909ab9ea45ad19b3a87dd176b6d5d1a552b028f22529b616d06817560cf65c",
         },
+        .zts = .{
+            .url = "https://github.com/zigster64/zts/archive/01f5b0e1a4bd8994b403bb3b9acc068563b99d18.tar.gz",
+            .hash = "122037b79a42bce252d60cb134bb9118bc64278df7c55faaefef26300c5186c450f1",
+        }
     }
 }

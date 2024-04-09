@@ -15,7 +15,7 @@ pub fn main() !void {
 
 fn ping(req: *httpz.Request, res: *httpz.Response) !void {
     _ = req;
-    res.body = "Hello World!";
+    res.body = @embedFile("templ/index.html");
 }
 
 test "simple test" {
